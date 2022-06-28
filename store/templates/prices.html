@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  {% load cart %}
+  {% load custom_filter %}
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+    <meta charset="UTF-8">
+    <title>Sorting by Prices</title>
+</head>
+<body>
+    <!--navbar-->
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container-fluid">
+      <a  style="color:royalblue;" class="navbar-brand" href="http://127.0.0.1:8000/store/">AbleCommerce</a>
+      
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="http://127.0.0.1:8000/store/aboutourwebsite">About our Website</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="http://127.0.0.1:8000/store/aboutus"></i>About Us</a>
+          </li>
+          
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="http://127.0.0.1:8000/store/artisans">Artisans Registration</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="http://127.0.0.1:8000/store/artisanslogin"> Artisans Login</a>
+          </li>
+          {% if request.session.customer_id %}
+          <li class="nav-item">
+            <a class="nav-link active" style="color: red;" aria-current="page" href="http://127.0.0.1:8000/store/profile">  {{request.session.email}}</a>
+          </li>
+          {%  else %}
+          <div>
+  
+          </div>
+          {% endif %}
+          
+        </ul>
+  
+        <ul class="navbar-nav my-2 my-lg-0">
+         
+          {% if request.session.customer_id %}
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="/store/cart">Cart 🛒</a>
+            
+            </li>
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="/store/logout">Logout</a>
+            </li>
+            
+              <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="/store/orders">Orders</a>
+                </li>
+           {% else %}
+           <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="/store/cart">Cart 🛒</a>
+           
+            </li>
+           <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="http://127.0.0.1:8000/store/signup">Signup</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="http://127.0.0.1:8000/store/customerlogin">Customer Login</a>
+            </li>
+          {% endif %}
+              
+            
+               
+            
+          
+          
+          
+        </ul>
+        
+      </div>
+    </div>
+  </nav>
+<!--Body-->
+<div class="container-fluid mt-3">
+    <div class="row">
+      <!--filter-->
+    
+      
+     
+      <div class="col lg-3">
+        <div class="list-group">
+
+          {% for cost in price %}
+          
+          <a  href="?prices1={{cost.id}}" class="list-group-item 
+          list-group-item-action ">{{cost.id}}.{{cost.pricerange}}</a>
+          {% endfor %}
+        </div>
+      </div>
+
+
+<!--all products-->
+<div id='products1'class="col-lg-9">
+    <div class="row mx-auto">
+      {% for product in products %}
+    <div class="card mx-auto mb-3" style="width: 18rem;">
+        <img src="{{product.image.url}}"style="height: 250px;width: 250px;" class="card-img-top" alt="Caption">
+        <div class="card-body">
+          <h1 class="card-title">{{product.name}}</h1>
+          <p class="card-text"><b>{{product.prices1}}</b></p>
+          <p class="card-text"><b>{{product.price|currency}}</b></p>
+          <p class="card-text"><b>{{product.description}}</b></p>
+         
+         
+          
+          <div class="card-footer  p-0 row no-gutters">
+
+            {% if product|is_in_cart:request.session.cart %}
+           <div class="row no-gutters" >
+             <form action="/store/#{{product.id}}" class ="col-2" method="POST">
+               {% csrf_token %}
+               <input hidden type="text"name="product" value="{{product.id}}">
+               <input hidden type="text"name="remove" value="True">
+               <input type="submit" value=" - " class ="btn btn-block btn-secondary">
+ 
+             </form>
+             <div  class="text-center col">
+               {{product|cart_quantity:request.session.cart}}
+                in cart</div>
+             <form action="/store/#{{product.id}}" class ="col-2" method="POST">
+               {% csrf_token %}
+               <input hidden type="text"name="product" value="{{product.id}}">
+               <input type="submit" value=" + " class ="btn btn-block btn-secondary">
+ 
+             </form>
+             </div>
+           {% else %}
+           <form action="/store/#{{product.id}}" method="POST" class="btn-block">
+             {% csrf_token %}
+            <input hidden type="text"name="product" value="{{product.id}}">
+             <input  type="submit"class="float-right btn  btn-light border form-control" value="Add to Cart" >
+           </form>
+        {% endif %}
+         </div>
+        </div>
+     </div>
+      {% endfor %}
+    </div>
+  </div>
+</div>
+</div> 
+</body>
+</html>

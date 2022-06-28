@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+{% load cart %}
+{%load custom_filter %}
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+    <meta charset="UTF-8">
+<title> Cart page</title>
+</head>
+<body>
+   <!--navbar-->
+   <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container-fluid">
+      <a style="color:royalblue;" class="navbar-brand" href="http://127.0.0.1:8000/store/">Ablecommerce</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        
+         
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="http://127.0.0.1:8000/store/aboutourwebsite">About our Website</a>
+          </li>
+          <li class="nav-item">
+            <a  class="nav-link active" aria-current="page" href="http://127.0.0.1:8000/store/aboutus"></i>About Us</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="http://127.0.0.1:8000/store/signupr">Customer Registration</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="http://127.0.0.1:8000/store/customerlogin">Customer Login</a>
+            </li>
+            {% if request.session.artisan_id %}
+            <li class="nav-item">
+              <a class="nav-link active" style="color: red;" aria-current="page" href="http://127.0.0.1:8000/store/profile">  {{request.session.email}}</a>
+            </li>
+            {%  else %}
+            <div>
+    
+            </div>
+            {% endif %}
+         
+          
+          
+        </ul>
+  
+        <ul class="navbar-nav my-2 my-lg-0">
+          {% if request.session.artisan_id %}
+          
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="/store/artisans_logout">Logout</a>
+            </li>
+           
+              <li class="nav-item">
+                <a class="nav-link active" style="color: red;" aria-current="page" href="/store/artisans_orders">Orders</a>
+                </li>
+           {% else %}
+           <li class="nav-item">
+            <a class="nav-link active"  aria-current="page" href="/store/cart">Cart</a>
+            <img  style="height: 30px;width: 30px;"src="https://image.flaticon.com/icons/png/128/891/891462.png" alt="">
+            </li>
+           <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="http://127.0.0.1:8000/store/signup">Signup</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="http://127.0.0.1:8000/store/customerlogin">Customer Login</a>
+            </li>
+          
+            
+          {% endif %}
+         
+         </ul>
+            
+              
+            
+          
+          
+        
+      </div>
+    </div>
+  </nav>
+  <div  style="color: red;"   class="text-center">
+    <h1> ORDERS TO DELIVER </h1> 
+  </div>
+
+<div class="container">
+
+    <img class="rounded mx-auto d-block " style="height: 300px; width: 500px;" src="https://thumbs.dreamstime.com/b/order-placed-received-processing-concept-tiny-people-e-commerce-shopping-vector-illustration-set-online-booking-customer-216417607.jpg" alt="">
+ <div style="margin-left:-40px"  class="border ">
+  <p class="display-5"></p>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Serial.No</th>
+                <th>Name of Customer</th>
+                <th>Image</th>
+                <th>Product</th>
+                
+                <th>Quantity</th>
+                <th>Date</th>
+                <th>Total</th>
+                <th>Address of Customer</th>
+                <th>Phone Number of Customer</th>
+              
+                <th>Accept Order</th>
+                <th> Order Processed</th>
+                <th> Order Shipped</th>
+                <th> Order Delivered</th>
+
+            </tr>
+        </thead>
+        <tbody>
+            {% for order in orders %}
+            <tr>
+                <td>{{forloop.counter}}</td>
+                <td>{{order.customer.first_name}} {{order.customer.last_name}}
+
+                  
+
+                </td>
+                <td> <img  style="height: 80px; width: 100px;"   src="{{order.product.image.url}}" alt=""> </td>
+                
+                      
+                <td>{{order.product.name}}</td>
+                <td>{{order.quantity}}</td>
+                <td>{{order.date}}</td>
+                
+                <td>{{order.quantity|multiply:order.price|currency}}</td>
+                <td>{{order.address}}</td>
+                <td>{{order.phone}}</td>
+              
+
+               
+                {%  if  order.order_placed %}
+
+                <td  style="color:green ">Order Accepted</td>
+                
+                
+                  {% else %}
+
+
+
+                  <td style="color:red "><a href="/store/artisans_orders/{{order.id}}">
+                    Accept Order  </a>
+
+               </td>
+                  {% endif  %}
+
+                  {%  if  order.order_processed %}
+
+                <td style="color:green ">Order Processed</td>
+                
+                
+                  {% else %}
+
+
+
+                  <td style="color:red "><a href="/store/artisans_orders/procees_order/{{order.id}}">
+                    Processed </a>
+
+               </td>
+                  {% endif  %}
+
+
+                  {%  if  order.order_shipped %}
+
+                <td style="color:green">Order Shipped</td>
+                
+                
+                  {% else %}
+
+                  <td style="color:red "><a href="/store/artisans_orders/shipped/{{order.id}}">
+                    Shipped</a>
+
+               </td>
+                  {% endif  %}
+
+
+                  {%  if  order.order_delivered %}
+
+                <td style="color:green ">Order Delivered</td>
+                
+                
+                  {% else %}
+
+
+
+                  <td style="color:red "><a href="/store/artisans_orders/delivered/{{order.id}}">
+                    Delivery</a>
+
+               </td>
+                  {% endif  %}
+                  
+                
+                
+
+            </tr>
+            {% endfor %}
+
+        </tbody>
+       
+    </table>
+    <div >
+       
+    </div>
+ </div>
+</div>
+<div class="col text-center">
+    <a    href="/store/artisans_logout"   style="color :brown;"
+    class=" btn btn-outline-info border rounded col-lg-3 float-right  " >
+      LOGOUT
+      </a>
+</div>
+
+
+
+
+
+</body>
+</html>

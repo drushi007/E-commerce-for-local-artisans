@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+    <meta charset="UTF-8">
+    <title>CREATE AN ACCOUNT</title>
+</head>
+<body> 
+   
+<!--navbar-->
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container-fluid">
+      <a  style="color:royalblue;" class="navbar-brand" href="http://127.0.0.1:8000/store/">AbleCommerce</a>
+      
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        
+         
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="http://127.0.0.1:8000/store/aboutourwebsite">About our Website</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="http://127.0.0.1:8000/store/aboutus"></i>About Us</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="http://127.0.0.1:8000/store/volunteer">Be A Volunteer!</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="#">Volunteer Login</a>
+            </li>
+            {% if request.session.customer_id %}
+            <li class="nav-item">
+              <a class="nav-link active" style="color: red;" aria-current="page" href="http://127.0.0.1:8000/store/profile">  {{request.session.email}}</a>
+            </li>
+            {%  else %}
+            <div>
+    
+            </div>
+            {% endif %}
+        </ul>
+  
+        <ul class="navbar-nav my-2 my-lg-0">
+         
+        
+        
+          {% if request.session.customer_id %}
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="/store/cart">Cart</a>
+            <img  style="height: 30px;width: 30px;"src="https://image.flaticon.com/icons/png/128/891/891462.png" alt="">
+            </li>
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="/store/logout">Logout</a>
+            </li>
+           
+              <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="/store/orders">Orders</a>
+                </li>
+           {% else %}
+           <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="/store/cart">Cart</a>
+            <img  style="height: 30px;width: 30px;"src="https://image.flaticon.com/icons/png/128/891/891462.png" alt="">
+            </li>
+           <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="http://127.0.0.1:8000/store/signup">Signup</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="http://127.0.0.1:8000/store/customerlogin">Customer Login</a>
+            </li>
+          {% endif %}
+          
+        </ul>
+       
+      </div>
+    </div>
+          
+        </form>
+      </div>
+    </div>
+  </nav>
+  <div class="text-center" style="color: royalblue;">
+    <h1> Feedback  for AbleEcommerce</h1>
+  </div>
+  <div class="row">
+   <img class="rounded mx-auto d-block" style="height: 300px; width: 300px;"   src="https://d2slcw3kip6qmk.cloudfront.net/marketing/blog/2019Q1/giving-feedback/how-to-give-feedback-header@2x.png" alt="Not Available">
+  </div>
+ 
+  </div>
+</div>
+  <div class="container">
+      <div class="p-4 m-4">
+          <div class="col-lg-5 mx-auto border rounded pt-4 px-4 ">
+              <h3 class="alert alert-light border rounded" >GIVE FEEDBACK</h3>
+           <form action="/store/feedback" method="POST">
+            {% csrf_token %}
+            {%if error%}
+             <div class="alert alert-danger" role="alert">
+               {{error}}
+             
+             </div>
+             {% endif %}
+                <!--First Name-->
+              <div class="form-group">
+                <label for=""> Name</label>
+                <input type="text" 
+                name="name"  value="{{values1.name}}" id="" 
+                class="form-control form-control-sm" placeholder="" >
+            
+                
+              </div>
+             
+               <!--email-->
+               
+               <div class="form-group">
+                <label for="">Email</label>
+                <input required type="email" 
+                name="email" value="{{values1.email}}" id="" 
+                class="form-control form-control-sm" placeholder="abc@gmail.com" >
+            
+               
+              </div>
+                 <!--Phone-->
+            <div class="form-group">
+                <label for="">Mobile Number</label>
+                <input type="text" 
+                name="phone" value="{{values1.phone}}"  id="" 
+                class="form-control form-control-sm" placeholder="38944004" >
+               <!--rating-->
+               <div class="form-group">
+                <label for="">Please Rate Us Out of 10</label>
+                <input type="text" 
+                name="rating" id="" 
+                class="form-control form-control-sm" placeholder="7" >
+            
+                
+              </div>
+
+               <!--Experience-->
+               <div class="form-group">
+                <label for="">Tell Us About Your Experience With Able-Commerce</label>
+                <input type="text" 
+                name="experience" value="{{values1.experience}}"  id="" 
+                class="form-control form-control-sm" placeholder="" >
+            
+                
+              </div>
+              <!--Improve-->
+              <div class="form-group">
+                <label for=""> Tell Us Where Can we Improve </label>
+                <input type="text" 
+                name="improve" id="" 
+                class="form-control form-control-sm" placeholder="" >
+            
+                
+              </div>
+          
+          
+              
+         
+             
+        <div class="form-group mt-4 ">
+            
+         <input class="btn btn-sm btn-info" type="Submit"  value="Sumbit Feedback" >
+        </div>
+        <div class="mt-4">
+            
+        </div>
+              
+             
+           </form>
+          </div>
+
+      </div>
+  </div>
+</body>
+</html>

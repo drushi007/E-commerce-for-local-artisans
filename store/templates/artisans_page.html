@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+    <meta charset="UTF-8">
+    <title>Welcome Volunteer</title>
+</head>
+<body>
+
+<!--navbar-->
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <div class="container-fluid">
+    <a  style="color:royalblue;" class="navbar-brand" href="http://127.0.0.1:8000/store/">AbleCommerce</a>
+    
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+      
+       
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="http://127.0.0.1:8000/store/aboutourwebsite">About our Website</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="http://127.0.0.1:8000/store/aboutus"></i>About Us</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="http://127.0.0.1:8000/store/artisans">Artisans Registration</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="/store/artisanslogin">Artisans Login</a>
+        </li>
+       
+        {% if request.session.customer_id %}
+        <li class="nav-item">
+          <a class="nav-link active" style="color: red;" aria-current="page" href="http://127.0.0.1:8000/store/profile">  {{request.session.email}}</a>
+        </li>
+        {%  else %}
+        <div>
+
+        </div>
+        {% endif %}
+
+
+        
+        
+          
+        
+        
+      </ul>
+      
+  
+      <ul class="navbar-nav my-2 my-lg-0">
+        {% if request.session.customer_id %}
+    
+         
+        
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="/store/cart">Cart 🛒</a>
+
+         
+           
+          </li>
+         
+            <li class="nav-item">
+            
+              <a class="nav-link active" aria-current="page" href="/store/orders">Orders</a>
+              
+              </li>
+              <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="/store/logout">Logout</a>
+                </li>
+         {% else %}
+        
+
+         <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="/store/cart">Cart 🛒</a>
+        
+         
+        </li>
+         <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="http://127.0.0.1:8000/store/signup">Signup</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="http://127.0.0.1:8000/store/customerlogin">Customer Login</a>
+          </li>
+        {% endif %}
+      </ul>
+     
+    </div>
+  </div>
+        
+      </form>
+    </div>
+  </div>
+</nav>
+
+
+
+
+    <div class="text-center">
+    <h1 > WELCOME ARTISAN  {{request.session.name}} !!</h1>
+    <h1 style="color:red " > THANKS FOR JOINING US!</h1>
+    <div class="m-3 p-3 ">
+      <a   href="/store/artisan_profile"   
+      class="btn btn-outline-info border rounded col-lg-3 float-right " >
+         View  Your Profile
+        </a>
+      <a    href="http://127.0.0.1:8000/store/artisans_orders"   style="color:red;"
+      class=" btn btn-outline-info border rounded col-lg-3 float-right  " >
+         Orders Received
+      </a>
+      <a    href="http://127.0.0.1:8000/store/artisans_logout"   style="color :brown;"
+      class=" btn btn-outline-info border rounded col-lg-3 float-right  " >
+        LOGOUT
+        </a>
+     </div>
+    
+    
+
+    <div class="row mx-auto">
+    <div class="card mx-auto mb-3" style="width: 25rem;">
+      <img src="https://cdn.pixabay.com/photo/2016/06/09/10/00/smartphone-1445489_1280.jpg" class="img-fluid" alt="Responsive image" style="height: 300px;width: 300px;">
+        
+        <div class="card-body">
+          <h4 class="card-title"> Benefits of Joining Us</h4>
+          <h4 class="card-title" > 1.Volunteering connects you to others. </h4>
+          <p class="card-text" style="text-align:justify ;"><b>
+           
+            One of the more well-known benefits of volunteering is the impact on the community. Volunteering allows you to connect to your community and make it a better place. Even helping out with the smallest tasks can make a real difference to the lives of people, animals, and organizations in need. And volunteering is a two-way street: It can benefit you and your family as much as the cause you choose to help. Dedicating your time as a volunteer helps you make new friends, expand your network, and boost your social skills.</b></p>
+          
+          
+          
+        </div>
+     </div>
+     <div class="card mx-auto mb-3" style="width: 25rem;">
+      <img src="https://cdn.friendsoftheearth.uk/sites/default/files/styles/hero_image/public/media/images/volunteer-hero-pic.jpg?itok=0Tp1px4K" class="img-fluid" alt="Responsive image" style="height: 300px;width: 300px; image-orientation: inherit;">
+        
+        <div class="card-body">
+          <h4 class="card-title"> Benefits of Joining Us</h4>
+          <h4 class="card-title ">2.Make new friends and contacts</h4>
+          <p class="card-text" style="text-align: justify"><b>
+            One of the best ways to make new friends and strengthen existing relationships is to commit to a shared activity together. Volunteering is a great way to meet new people, especially if you are new to an area. It strengthens your ties to the community and broadens your support network, exposing you to people with common interests, neighborhood resources, and fun and fulfilling activities.
+          </b></p>
+
+             
+          
+          
+        </div>
+     </div>
+     <div class="card mx-auto mb-3" style="width: 25rem;">
+      <img src="https://cdn.pixabay.com/photo/2018/05/03/11/38/skills-3371153_1280.jpg" class="img-fluid" alt="Responsive image" style="height: 300px;width: 300px;">
+        
+        <div class="card-body">
+          <h4 class="card-title"> Benefits of Joining Us</h4>
+          <h4 class="card-title ">3.Increase your social and relationship skills</h4>
+          <p class="card-text" style="text-align: justify"><b>
+            One of the best ways to make new friends and strengthen existing relationships is to commit to a shared activity together. Volunteering is a great way to meet new people, especially if you are new to an area. It strengthens your ties to the community and broadens your support network, exposing you to people with common interests, neighborhood resources, and fun and fulfilling activities.
+          </b></p>
+
+             
+          
+          
+        </div>
+     </div>
+     
+    </div>
+    </div> 
+
+
+
+</div>
+
+</body>
+</html>

@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+    <meta charset="UTF-8">
+    <title>CREATE AN ACCOUNT</title>
+</head>
+<body> 
+   
+<!--navbar-->
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container-fluid">
+      <a  style="color:royalblue;" class="navbar-brand" href="http://127.0.0.1:8000/store/">E-com for Artisans</a>
+      
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        
+         
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="http://127.0.0.1:8000/store/aboutourwebsite">About our Website</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="http://127.0.0.1:8000/store/aboutus"></i>About Us</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="http://127.0.0.1:8000/store/artisans">Artisans Registration</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="http://127.0.0.1:8000/store/artisanslogin">Artisans Login</a>
+            </li>
+            {% if request.session.customer_id %}
+            <li class="nav-item">
+              <a class="nav-link active" style="color: red;" aria-current="page" href="http://127.0.0.1:8000/store/profile">  {{request.session.email}}</a>
+            </li>
+            {%  else %}
+            <div>
+    
+            </div>
+            {% endif %}
+        </ul>
+  
+        <ul class="navbar-nav my-2 my-lg-0">
+         
+        
+        
+          {% if request.session.customer_id %}
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="/store/cart">Cart 🛒</a>
+          
+            </li>
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="/store/logout">Logout</a>
+            </li>
+           
+              <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="/store/orders">Orders</a>
+                </li>
+           {% else %}
+           <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="/store/cart">Cart 🛒</a>
+           
+            </li>
+           <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="http://127.0.0.1:8000/store/signup">Signup</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="http://127.0.0.1:8000/store/customerlogin">Customer Login</a>
+            </li>
+          {% endif %}
+          
+        </ul>
+       
+      </div>
+    </div>
+          
+        </form>
+      </div>
+    </div>
+  </nav>
+  <div class="text-center" style="color: royalblue;">
+    <h1> Customer Registration</h1>
+  </div>
+  <div class="row">
+    {% for c in sign %}
+    <div class="card mx-auto mb-3" style="width: 18rem;">
+        <img src={{c.image.url}} style="height:200px;width: 200px; "class="card-img-top" alt="Caption">
+  </div>
+  {% endfor %}
+  </div>
+</div>
+  <div class="container">
+      <div class="p-4 m-4">
+          <div class="col-lg-5 mx-auto border rounded pt-4 px-4 ">
+              <h3 class="alert alert-light border rounded" >CREATE AN ACCOUNT</h3>
+           <form action="/store/signup" method="POST">
+            {% csrf_token %}
+            {%if error %}
+             <div class="alert alert-danger" role="alert">
+               {{error}}
+             
+             </div>
+             {% endif %}
+                <!--First Name-->
+              <div class="form-group">
+                <label for="">First Name</label>
+                <input type="text" 
+                name="First Name"  value="{{values1.First_name}}" id="" 
+                class="form-control form-control-sm" placeholder="" >
+            
+                
+              </div>
+              <!--Last Name-->
+              <div class="form-group">
+                <label for="">Last Name</label>
+                <input type="text" 
+                name="Last Name" value="{{values1.last_name}}"  id="" 
+                class="form-control form-control-sm" placeholder="" >
+            
+                
+              </div>
+               <!--email-->
+               
+               <div class="form-group">
+                <label for="">Email</label>
+                <input required type="email" 
+                name="email" value="{{values1.email}}" id="" 
+                class="form-control form-control-sm" placeholder="abc@gmail.com" >
+            
+               
+              </div>
+              
+               <!--Password-->
+               <div class="form-group">
+                <label for="">Password</label>
+                <input type="password" 
+                name="password" id="" 
+                class="form-control form-control-sm" placeholder="xyx12$" >
+            
+                
+              </div>
+              <!-- Re enter Password-->
+              <div class="form-group">
+                <label for=""> Re-Enter Password</label>
+                <input type="password" 
+                name="re-enter password" id="" 
+                class="form-control form-control-sm" placeholder="xyx12$" >
+            
+                
+              </div>
+          
+          
+              
+            <!--Mobile Number-->
+            <div class="form-group">
+             <label for="">Mobile Number</label>
+             <input type="text" 
+             name="Mobile Number" value="{{values1.phone}}"  id="" 
+             class="form-control form-control-sm" placeholder="38944004" >
+             <!--Register as-->
+             <div class="form-group">
+              
+              
+                
+              
+              
+             
+              
+               
+         
+             
+           </div>
+        <div class="form-group mt-4 ">
+            
+         <input class="btn btn-sm btn-info" type="Submit"  value=" Create An Account" >
+        </div>
+        <div class="mt-4">
+            
+        </div>
+              
+             
+           </form>
+          </div>
+
+      </div>
+  </div>
+</body>
+</html>
